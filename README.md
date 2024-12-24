@@ -1,129 +1,332 @@
-# 🧠 HawkinsDB: Neuroscience-Inspired Memory Layer for AI Applications
+# HawkinsDB
 
-Building smarter AI applications isn't just about better models - it's about better memory. HawkinsDB is our take on giving AI systems a more human-like way to store and recall information, inspired by how our own brains work. Based on Jeff Hawkins' Thousand Brains Theory, it helps AI models manage complex information in a way that's both powerful and intuitive.
+A powerful and flexible memory layer with ConceptNet integration and LLM-friendly interfaces. HawkinsDB provides a robust SQLite backend implementation with comprehensive error handling, timestamp management, and memory type validations.
 
-## Why HawkinsDB?
+## Features
 
-While vector databases and embeddings have revolutionized AI applications, they often miss the nuanced, multi-dimensional nature of information. Here's why we built HawkinsDB:
+- **Multiple Memory Types**
+  - 🧠 **Semantic Memory**: Store facts, concepts, and their relationships
+  - 📅 **Episodic Memory**: Record time-based events with timestamp management
+  - 📝 **Procedural Memory**: Store step-by-step procedures with validation
 
-- **It's not just another vector database**: Instead of relying on fuzzy similarity searches, we enable precise, context-aware queries that understand the actual meaning and relationships of your data.
+- **Storage Options**
+  - 💾 **SQLite Backend**: Robust persistent storage with data integrity
+  - 📄 **JSON Backend**: Simple file-based storage for prototyping
 
-- **One memory system to rule them all**: We've unified different types of memory (semantic, episodic, and procedural) into a single framework. Think about a customer support AI that can simultaneously access product specs, past customer interactions, and troubleshooting guides - all working together seamlessly.
+- **Smart Integrations**
+  - 🤖 **LLM Interface**: Natural language interactions via OpenAI
+  - 🌐 **ConceptNet**: Knowledge enrichment and semantic connections
 
-- **Inspired by the human brain**: We've based our architecture on neuroscience research, using concepts like Reference Frames and Cortical Columns to create a more robust and adaptable system.
+- **Core Capabilities**
+  - ✨ Rich property and relationship management
+  - ⏱ Precise temporal tracking across memory types
+  - 🔍 Smart search and querying capabilities
+  - 🛡 Comprehensive error handling and validation
 
-- **You can actually understand what's happening**: Unlike black-box embeddings, our structured approach lets you see and understand how information is connected and why certain decisions are made.
+## Quick Start
 
-## Requirements
-
-- Python 3.10 or higher
-- OpenAI API key (for LLM operations)
-- SQLite or JSON storage backend
-
-## Installation
+### Installation
 
 ```bash
 # Basic installation
 pip install hawkinsdb
 
-# Recommended installation with all features
+# With all features (recommended)
 pip install hawkinsdb[all]
 
-# Install specific features
-pip install hawkinsdb[conceptnet]  # ConceptNet tools
+# Or install specific features
+pip install hawkinsdb[conceptnet]  # For ConceptNet integration
+pip install hawkinsdb[llm]         # For LLM interface
+pip install hawkinsdb[dev]         # For development
 ```
 
-## Quick Start
+### Basic Usage
 
-Here's a simple example showing the power of HawkinsDB:
+```python
+from hawkinsdb import HawkinsDB
+
+# Initialize database
+db = HawkinsDB()
+
+# Add semantic memory
+result = db.add_entity({
+    "name": "Python",
+    "column": "Semantic",
+    "properties": {
+        "type": "Programming_Language",
+        "paradigm": ["Object-oriented", "Functional"],
+        "created_by": "Guido van Rossum",
+        "year": 1991
+    },
+    "relationships": {
+        "used_for": ["Web Development", "Data Science"],
+        "similar_to": ["Ruby", "JavaScript"]
+    }
+})
+
+# Query the memory
+python_info = db.query_frames("Python")
+print(python_info["Semantic"].properties)  # Access properties
+```
+
+### Using LLM Interface
 
 ```python
 from hawkinsdb import HawkinsDB, LLMInterface
 
-# Initialize
 db = HawkinsDB()
-llm = LLMInterface(db)
+llm = LLMInterface(db, auto_enrich=True)
 
-# Store knowledge with multiple perspectives
-db.add_entity({
-    "column": "Semantic",
-    "name": "Coffee Cup",
-    "properties": {
-        "type": "Container",
-        "material": "Ceramic",
-        "capacity": "350ml"
-    },
-    "relationships": {
-        "used_for": ["Drinking Coffee", "Hot Beverages"],
-        "found_in": ["Kitchen", "Coffee Shop"]
-    }
-})
+# Add memory using natural language
+result = llm.add_from_text("""
+    A Tesla Model 3 is an electric car manufactured by Tesla.
+    It has autopilot capabilities and comes in red, white, and black colors.
+""")
 
 # Query using natural language
-response = llm.query("What can you tell me about the coffee cup?")
+response = llm.query("What color options are available for the Tesla Model 3?")
+
+## Quick Start Guide
+
+### Basic Usage
+
+```python
+from hawkinsdb import HawkinsDB
+
+# Initialize the database
+db = HawkinsDB()
+
+# Add a semantic memory (concept)
+concept = {
+    "column": "Semantic",
+    "name": "Car",
+    "properties": {
+        "type": "Vehicle",
+        "wheels": 4,
+        "purpose": "Transportation"
+    },
+    "relationships": {
+        "has_part": ["Engine", "Wheels", "Body"],
+        "is_a": ["Vehicle"]
+    }
+}
+db.add_entity(concept)
+
+# Query the concept
+result = db.query_frames("Car")
+print(result)
+```
+
+### Memory Types Examples
+
+#### 1. Semantic Memory
+```python
+# Store facts and concepts
+semantic_memory = {
+    "column": "Semantic",
+    "name": "Python_Language",
+    "properties": {
+        "type": "Programming_Language",
+        "paradigm": ["Object-oriented", "Imperative", "Functional"],
+        "created_by": "Guido van Rossum",
+        "year": 1991
+    },
+    "relationships": {
+        "used_for": ["Web Development", "Data Science", "Automation"],
+        "similar_to": ["Ruby", "JavaScript"]
+    }
+}
+db.add_entity(semantic_memory)
+```
+
+#### 2. Episodic Memory
+```python
+# Store events with temporal context
+import time
+
+episodic_memory = {
+    "column": "Episodic",
+    "name": "First_Python_Project",
+    "timestamp": time.time(),
+    "action": "Completed project",
+    "properties": {
+        "location": "Home Office",
+        "duration": "2 hours",
+        "participants": ["User1"],
+        "outcome": "Success"
+    },
+    "relationships": {
+        "related_to": ["Python_Language"],
+        "followed_by": ["Code_Review"]
+    }
+}
+db.add_entity(episodic_memory)
+```
+
+#### 3. Procedural Memory
+```python
+# Store step-by-step procedures
+procedure = {
+    "column": "Procedural",
+    "name": "Git_Commit_Process",
+    "steps": [
+        "Stage changes using git add",
+        "Review changes with git status",
+        "Commit with descriptive message",
+        "Push to remote repository"
+    ],
+    "properties": {
+        "difficulty": "Beginner",
+        "required_tools": ["Git"],
+        "estimated_time": "5 minutes"
+    }
+}
+db.add_entity(procedure)
+```
+
+### Advanced Features
+
+#### 1. Using the LLM Interface
+```python
+from hawkinsdb import HawkinsDB, LLMInterface
+
+db = HawkinsDB()
+interface = LLMInterface(db, auto_enrich=True)
+
+# Add entity with natural language
+result = interface.add_from_text("""
+    Create a car entity named Tesla_Model_3 with color red,
+    manufactured in 2023, and located in the garage
+""")
+
+# Query using natural language
+response = interface.query("What color is the Tesla Model 3?")
 print(response)
 ```
 
-## How It Works
+#### 2. Memory Linking
+```python
+# Link different types of memories
+db.add_entity({
+    "column": "Episodic",
+    "name": "Learning_Git",
+    "timestamp": time.time(),
+    "action": "Learned Git basics",
+    "relationships": {
+        "follows": ["Git_Commit_Process"],  # Link to procedural memory
+        "uses": ["Git"]  # Link to semantic memory
+    }
+})
+```
 
-HawkinsDB manages information through three core concepts:
+#### 3. ConceptNet Enrichment
+```python
+from hawkinsdb import HawkinsDB, ConceptNetEnricher
 
-### 🧩 Reference Frames
-Smart containers for information that capture what something is, its properties, relationships, and context. This enables natural handling of complex queries like "Find kitchen items related to coffee brewing."
+db = HawkinsDB()
+enricher = ConceptNetEnricher(db)
 
-### 🌐 Cortical Columns
-Just like your brain processes information from multiple perspectives (visual, tactile, conceptual), our system stores knowledge in different "columns." This means an object isn't just stored as a single definition - it's understood from multiple angles.
+# Add entity with auto-enrichment
+tree_data = {
+    "name": "Oak_Tree",
+    "column": "Semantic",
+    "properties": {
+        "type": "Tree",
+        "category": "Plant"
+    }
+}
+db.add_entity(tree_data)
+enricher.enrich_entity(db, "Oak_Tree", "Tree")
+```
 
-### Memory Types
+## API Reference
 
-We support three key types of memory:
+### Core Classes
 
-- **Semantic Memory**: For storing facts, concepts, and general knowledge
-- **Episodic Memory**: For keeping track of events and experiences over time
-- **Procedural Memory**: For capturing step-by-step processes and workflows
+#### HawkinsDB
+- `__init__(storage=None)`: Initialize database with optional storage backend
+- `add_entity(entity_data)`: Add an entity to the database
+- `query_frames(name)`: Query frames by name
+- `add_reference_frame(...)`: Low-level API for adding frames
 
-### 💾 Storage Options
+#### LLMInterface
+- `__init__(db, auto_enrich=False)`: Initialize LLM interface
+- `add_from_text(text)`: Add entity from natural language description
+- `query(question)`: Query database using natural language
 
-- **SQLite**: Rock-solid storage for production systems
-- **JSON**: Quick and easy for prototyping
+#### ConceptNetEnricher
+- `__init__(db)`: Initialize enricher
+- `add_entity_with_enrichment(entity)`: Add and enrich entity
+- `enrich_entity(entity)`: Enrich existing entity
 
-### 🔗 Smart Integrations
-ConceptNet integration for automatic knowledge enrichment and relationship discovery.
+### Memory Type Schemas
 
-## Contributing
+#### Semantic Memory
+```python
+{
+    "column": "Semantic",
+    "name": str,  # Required
+    "properties": dict,  # Optional
+    "relationships": dict,  # Optional
+    "location": dict  # Optional
+}
+```
 
-We love contributions! Here's how to help:
+#### Episodic Memory
+```python
+{
+    "column": "Episodic",
+    "name": str,  # Required
+    "timestamp": float,  # Required
+    "action": str,  # Required
+    "properties": dict,  # Optional
+    "relationships": dict,  # Optional
+    "location": dict  # Optional
+}
+```
 
-1. Fork the repository
-2. Create your feature branch
-3. Make your changes
-4. Run the tests
-5. Submit a pull request
+#### Procedural Memory
+```python
+{
+    "column": "Procedural",
+    "name": str,  # Required
+    "steps": list,  # Required
+    "properties": dict,  # Optional
+    "relationships": dict,  # Optional
+}
+```
+
+## Documentation
+
+For detailed guides and examples, see:
+- [Full Documentation](docs/README.md)
+- [ConceptNet Integration Guide](docs/conceptnet_guide.md)
+- [LLM Interface Guide](docs/llm_interface_guide.md)
 
 ## Development
 
 ```bash
-# Clone and set up
+# Clone the repository
 git clone https://github.com/your-username/hawkinsdb.git
 cd hawkinsdb
+
+# Install development dependencies
 pip install -e ".[dev]"
+
+# Run tests
 pytest tests/
 ```
 
-## 🗺️ Status and Roadmap
+## Contributing
 
-Currently under active development. Our focus areas:
-
-- [ ] Enhanced multi-modal processing
-- [ ] Performance optimizations for large-scale deployments
-- [ ] Extended LLM provider support
-- [ ] Advanced querying capabilities
-- [ ] Improved documentation and examples
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Add tests for new functionality
+5. Ensure tests pass (`pytest tests/`)
+6. Submit a Pull Request
 
 ## License
 
-HawkinsDB is available under the MIT License. See [LICENSE](LICENSE) for details.
+MIT License - See [LICENSE](LICENSE) file for details.
 
----
-
-Built by developers who think memory matters. Questions? Issues? Ideas? We'd love to hear from you!
