@@ -63,7 +63,7 @@ db.add_entity({
 response = llm.query("What can you tell me about the coffee cup?")
 print(response)
 ```
-Refer [Example](Example) and [DOC](Doc) for more examples such as RAG implementation using HawkinsDB and detailed documentation of HawkinsDB
+Refer [Example](examples) and [DOC](docs) for more examples such as RAG implementation using HawkinsDB and detailed documentation of HawkinsDB
 
 ## How It Works
 
