@@ -1,6 +1,6 @@
-# 🧠 HawkinsDB: Neuroscience-Inspired Memory Layer for AI Applications
+# 🧠 HawkinsDB: Neuroscience-Inspired Memory Layer for LLM Applications
 
-Building smarter AI applications isn't just about better models - it's about better memory. HawkinsDB is our take on giving AI systems a more human-like way to store and recall information, inspired by how our own brains work. Based on Jeff Hawkins' Thousand Brains Theory, it helps AI models manage complex information in a way that's both powerful and intuitive.
+Building smarter LLM applications isn't just about better models - it's about better memory. HawkinsDB is our take on giving AI systems a more human-like way to store and recall information, inspired by how our own brains work. Based on Jeff Hawkins' Thousand Brains Theory, it helps AI models manage complex information in a way that's both powerful and intuitive.
 
 ## Why HawkinsDB?
 
