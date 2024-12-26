@@ -4,6 +4,8 @@ Building smarter LLM applications isn't just about better models - it's about be
 
 > 📌 **Note for RAG Users**: If you're specifically looking to implement Retrieval-Augmented Generation (RAG), consider using [HawkinsRAG](https://pypi.org/project/hawkins-rag/0.1.0/) - our dedicated package built on top of HawkinsDB that simplifies RAG implementation with support for 22+ data sources. Check out the [documentation](https://github.com/harishsg993010/HawkinsRAG/tree/main/docs) and [examples](https://github.com/harishsg993010/HawkinsRAG/tree/main/examples) for more details.
 
+> 🤖 **Note for Agent Developers**: If you're interested in building AI agents, check out [Hawkins-Agent](https://pypi.org/project/hawkins-agent/) - our specialized framework built on HawkinsDB for creating intelligent agents. Visit our [GitHub repository](https://github.com/harishsg993010/HawkinsAgent) for implementation details.
+
 ## Why HawkinsDB?
 
 While vector databases and embeddings have revolutionized AI applications, they often miss the nuanced, multi-dimensional nature of information. Here's why we built HawkinsDB:
