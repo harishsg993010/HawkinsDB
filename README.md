@@ -2,6 +2,8 @@
 
 Building smarter LLM applications isn't just about better models - it's about better memory. HawkinsDB is our take on giving AI systems a more human-like way to store and recall information, inspired by how our own brains work. Based on Jeff Hawkins' Thousand Brains Theory, it helps AI models manage complex information in a way that's both powerful and intuitive.
 
+> 📌 **Note for RAG Users**: If you're specifically looking to implement Retrieval-Augmented Generation (RAG), consider using [HawkinsRAG](https://pypi.org/project/hawkins-rag/0.1.0/) - our dedicated package built on top of HawkinsDB that simplifies RAG implementation with support for 22+ data sources. Check out the [documentation](https://github.com/harishsg993010/HawkinsRAG/tree/main/docs) and [examples](https://github.com/harishsg993010/HawkinsRAG/tree/main/examples) for more details.
+
 ## Why HawkinsDB?
 
 While vector databases and embeddings have revolutionized AI applications, they often miss the nuanced, multi-dimensional nature of information. Here's why we built HawkinsDB:
@@ -63,7 +65,8 @@ db.add_entity({
 response = llm.query("What can you tell me about the coffee cup?")
 print(response)
 ```
-Refer [Example](examples) and [DOC](docs) for more examples such as RAG implementation using HawkinsDB and detailed documentation of HawkinsDB
+
+For more examples, check out our [examples directory](examples).
 
 ## How It Works
 
