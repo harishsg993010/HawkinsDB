@@ -132,4 +132,4 @@ HawkinsDB is available under the MIT License. See [LICENSE](LICENSE) for details
 
 ---
 
-Built by developers who think memory matters. Questions? Issues? Ideas? We'd love to hear from you!
+Built by developers who think memory matters ie Harish Santhanalakshmi Ganesan along with few AI Agents
